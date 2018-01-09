@@ -6,5 +6,5 @@ urlpatterns = [
     # url(r'^$', 'ekarty.views.home', name='home'),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('ekarty.urls')),
+    url(r'', include('aplikacja.urls')),
 ]
