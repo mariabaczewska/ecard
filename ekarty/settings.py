@@ -25,7 +25,7 @@ SECRET_KEY = 'sn$73$pj-9x$qy7fj5!dra+cnzg$d(bb^x)qj)4*supdyrgg*('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [baczi.pythonanywhere.com]
+ALLOWED_HOSTS = ['baczi.pythonanywhere.com']
 
 
 # Application definition
