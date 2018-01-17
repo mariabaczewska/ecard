@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <title>Ekarta gorączkowa</title>
+</head>
+
+<body>
+{% for karta in ekarty %}
+<div>
+
+  <p>Pacjent: <a href="/patient/{{karta.id}}/" target="_blank"> {{karta.patient}} </a></p>
+  <p>Lekarz prowadzący: {{karta.doctor}}</p>
+  <p>Data rejestracji: {{karta.created_date}}</p>
+  <p>Description: {{karta.description}}</p>
+
+
+</div>
+<hr>
+
+{%endfor%}
+
+
+
+</body>
+
+</html>

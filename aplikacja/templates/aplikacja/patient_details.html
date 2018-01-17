@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <title>{{card.patient.name}} {{card.patient.surname}}</title>
+</head>
+
+<body>
+<h3>Patient's Card</h3>
+<p>PESEL: {{card.patient.pesel}}
+<p>Registration date: {{card.patient.created_date}}</p>
+<p>Description: {{card.patient.description}}</p>
+
+<h3>Measurements:</h3>
+{% for m in measurements %}
+<div>
+  <p>Value: {{m.value}}</p>
+  <p>Doctor: {{m.doctor}}</p>
+  <p>Nurse: {{m.nurse}}</p>
+  <p>Measurement date: {{m.created_date}}</p>
+
+</div>
+<hr>
+{%endfor%}
+
+</body>
+
+</html>
