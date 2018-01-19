@@ -7,10 +7,10 @@
 </head>
 
 <body>
-<h3>Patient's Card</h3>
+<h3>Patient's Card: {{card.patient.name}} {{card.patient.surname}}</h3>
 <p>PESEL: {{card.patient.pesel}}
-<p>Registration date: {{card.patient.created_date}}</p>
-<p>Description: {{card.patient.description}}</p>
+<p>Registration date: {{card.created_date}}</p>
+<p>Description: {{card.description}}</p>
 
 <h3>Measurements:</h3>
 {% for m in measurements %}
@@ -21,9 +21,17 @@
   <p>Measurement date: {{m.created_date}}</p>
 
 </div>
+
 <hr>
 {%endfor%}
 
+<h4>Dodaj pomiar:</h4>
+<form action="/measurement/add/" method="post">
+{% csrf_token %}
+<input type="text" required name="value" placeholder="Pomiar">
+<input type="text" required name="card_id" style="display: none;" value="{{card.id}}">
+
+<input type="submit" value="Dodaj">
 </body>
 
 </html>

@@ -1,27 +1,32 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 # Create your models here.
+
+class MyUser(models.Model):
+    role=models.CharField(max_length=20)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Doctor(models.Model):
     name = models.CharField(max_length=20)
     surname = models.CharField(max_length=40)
-
+    myuser = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None , null=True)
     def __str__(self):
         return '{0} {1}'.format(self.name, self.surname)
 
 class Nurse(models.Model):
     name = models.CharField(max_length=20)
     surname = models.CharField(max_length=40)
-
+    myuser = models.ForeignKey(MyUser, on_delete=models.CASCADE, default=None, null=True)
     def __str__(self):
         return '{0} {1}'.format(self.name, self.surname)
+
 
 class Patient(models.Model):
     name = models.CharField(max_length=20)
     surname = models.CharField(max_length=40)
     pesel = models.CharField(max_length=9)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-
     def __str__(self):
         return '{0} {1}'.format(self.name, self.surname)
 

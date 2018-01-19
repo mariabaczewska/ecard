@@ -3,26 +3,70 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import django.utils.timezone
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
+            name='Doctor',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('name', models.CharField(max_length=20)),
+                ('surname', models.CharField(max_length=40)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Karta',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('name', models.CharField(max_length=200)),
-                ('surname', models.CharField(max_length=200)),
-                ('description', models.TextField()),
                 ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('published_date', models.DateTimeField(blank=True, null=True)),
-                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('description', models.TextField()),
             ],
+        ),
+        migrations.CreateModel(
+            name='Measurement',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('value', models.FloatField()),
+                ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
+                ('doctor', models.ForeignKey(blank=True, null=True, to='aplikacja.Doctor')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Nurse',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('name', models.CharField(max_length=20)),
+                ('surname', models.CharField(max_length=40)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Patient',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('name', models.CharField(max_length=20)),
+                ('surname', models.CharField(max_length=40)),
+                ('pesel', models.CharField(max_length=9)),
+                ('doctor', models.ForeignKey(to='aplikacja.Doctor')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='measurement',
+            name='nurse',
+            field=models.ForeignKey(blank=True, null=True, to='aplikacja.Nurse'),
+        ),
+        migrations.AddField(
+            model_name='measurement',
+            name='patient',
+            field=models.ForeignKey(to='aplikacja.Patient'),
+        ),
+        migrations.AddField(
+            model_name='karta',
+            name='patient',
+            field=models.ForeignKey(null=True, to='aplikacja.Patient'),
         ),
     ]

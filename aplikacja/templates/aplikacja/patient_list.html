@@ -15,13 +15,27 @@
   <p>Data rejestracji: {{karta.created_date}}</p>
   <p>Description: {{karta.description}}</p>
 
-
 </div>
+
 <hr>
 
 {%endfor%}
+<h4>Dodaj pacjenta:</h4>
+<form action="/patient/add/" method="post">
+{% csrf_token %}
+<input type="text" required name="name" placeholder="Imię">
+<input type="text" required name="surname" placeholder="Nazwisko">
+<input type="text" required name="PESEL" placeholder="PESEL">
+<textarea required name="desc" placeholder="Opis"></textarea>
+<select name="doctor_id" required>
 
+{% for lekarz in lekarze %}
+<option value="{{lekarz.id}}">{{lekarz}}</option>
+{%endfor%}
+</select>
+<input type="submit" value="Dodaj">
 
+</form>
 
 </body>
 

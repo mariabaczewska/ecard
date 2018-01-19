@@ -5,11 +5,12 @@ from .models import (
     Patient,
     Measurement,
     Nurse,
-) 
+)
 
 admin.site.register(Karta)
 admin.site.register(Doctor)
 admin.site.register(Patient)
 admin.site.register(Measurement)
 admin.site.register(Nurse)
+
 # Register your models here.
