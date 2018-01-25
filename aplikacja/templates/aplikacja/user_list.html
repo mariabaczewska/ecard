@@ -3,17 +3,17 @@
 <head>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <title>Ekarta gorączkowa</title>
+  <title>Użytkownicy</title>
 </head>
 
 <body>
 {% for user in user %}
 <div>
 
-  <p>Użytkownik: <a href="/users/{{user.id}}/" target="_blank"> </a></p>
+  <p>Użytkownik:</p>
   <p>Imię: {{user.name}}</p>
   <p>Nazwisko: {{user.surname}}</p>
-
+  <p>Rola: {{user.role}}</p>
 </div>
 
 <hr>
@@ -24,6 +24,7 @@
 {% csrf_token %}
 <input type="text" required name="name" placeholder="Imię">
 <input type="text" required name="surname" placeholder="Nazwisko">
+<input type="text" required name="role" placeholder="Rola">
 <input type="submit" value="Dodaj">
 
 </form>

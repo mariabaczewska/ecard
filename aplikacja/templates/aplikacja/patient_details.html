@@ -31,7 +31,24 @@
 <input type="text" required name="value" placeholder="Pomiar">
 <input type="text" required name="card_id" style="display: none;" value="{{card.id}}">
 
+Doctor: 
+<select name="doctor_id">
+  {% for lekarz in lekarze %}
+  <option value="-1">None</option>
+  <option value="{{lekarz.id}}">{{lekarz}}</option>
+  {%endfor%}
+</select>
+
+Nurse: 
+<select name="nurse_id">
+  {% for pielegniarka in pielegniarki %}
+  <option value="-1">None</option>
+  <option value="{{pielegniarka.id}}">{{pielegniarka}}</option>
+  {%endfor%}
+</select>
+
 <input type="submit" value="Dodaj">
+</form>
 </body>
 
 </html>
