@@ -1,12 +1,6 @@
-<html>
+{% extends "aplikacja/base.html" %}
 
-<head>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <title>Ekarta gorączkowa</title>
-</head>
-
-<body>
+{% block content %}
 {% for karta in ekarty %}
 <div>
 
@@ -23,10 +17,10 @@
 <h4>Dodaj pacjenta:</h4>
 <form action="/patient/add/" method="post">
 {% csrf_token %}
-<input type="text" required name="name" placeholder="Imię">
-<input type="text" required name="surname" placeholder="Nazwisko">
-<input type="text" required name="PESEL" placeholder="PESEL">
-<textarea required name="desc" placeholder="Opis"></textarea>
+<input type="text" class="form-control" required name="name" placeholder="Imię">
+<input type="text" class="form-control" required name="surname" placeholder="Nazwisko">
+<input type="text" class="form-control" required name="PESEL" placeholder="PESEL">
+<textarea required name="desc" class="form-control" placeholder="Opis"></textarea>
 <select name="doctor_id" required>
 
 {% for lekarz in lekarze %}
@@ -37,6 +31,4 @@
 
 </form>
 
-</body>
-
-</html>
+{%endblock%}

@@ -1,16 +1,93 @@
-<html>
 
-<head>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <title>{{card.patient.name}} {{card.patient.surname}}</title>
-</head>
+{% extends "aplikacja/base.html" %}
 
-<body>
+{% block content %}
+
 <h3>Patient's Card: {{card.patient.name}} {{card.patient.surname}}</h3>
 <p>PESEL: {{card.patient.pesel}}
 <p>Registration date: {{card.created_date}}</p>
 <p>Description: {{card.description}}</p>
+
+<h4>Dodaj pomiar:</h4>
+<form action="/measurement/add/" method="post">
+{% csrf_token %}
+<input type="text" class="form-control" required name="value" placeholder="Pomiar">
+<input type="text" required name="card_id" style="display: none;" value="{{card.id}}">
+
+Doctor:
+<select name="doctor_id">
+  {% for lekarz in lekarze %}
+  <option value="-1">None</option>
+  <option value="{{lekarz.id}}">{{lekarz}}</option>
+  {%endfor%}
+</select>
+
+Nurse:
+<select name="nurse_id">
+  {% for pielegniarka in pielegniarki %}
+  <option value="-1">None</option>
+  <option value="{{pielegniarka.id}}">{{pielegniarka}}</option>
+  {%endfor%}
+</select>
+
+<input type="submit" value="Dodaj">
+</form>
+
+<canvas id="graph" height="50"></canvas>
+<script>
+var graph = document.getElementById("graph").getContext("2d");
+var dates = [];
+var values=[];
+{% for m in measurements %}
+dates.push("{{m.created_date}}");
+values.push({{m.value}});
+{%endfor%}
+
+
+
+
+var chart = new Chart(graph, {
+  type: "line",
+  data: {
+    labels: dates.reverse(),
+    datasets: [{
+      label: "Temperatura",
+      data: values.reverse(),
+      backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+
+
+
+    }]
+  },
+  options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:false
+                }
+            }]
+        }
+    }
+});
+
+</script>
+
 
 <h3>Measurements:</h3>
 {% for m in measurements %}
@@ -25,30 +102,5 @@
 <hr>
 {%endfor%}
 
-<h4>Dodaj pomiar:</h4>
-<form action="/measurement/add/" method="post">
-{% csrf_token %}
-<input type="text" required name="value" placeholder="Pomiar">
-<input type="text" required name="card_id" style="display: none;" value="{{card.id}}">
 
-Doctor: 
-<select name="doctor_id">
-  {% for lekarz in lekarze %}
-  <option value="-1">None</option>
-  <option value="{{lekarz.id}}">{{lekarz}}</option>
-  {%endfor%}
-</select>
-
-Nurse: 
-<select name="nurse_id">
-  {% for pielegniarka in pielegniarki %}
-  <option value="-1">None</option>
-  <option value="{{pielegniarka.id}}">{{pielegniarka}}</option>
-  {%endfor%}
-</select>
-
-<input type="submit" value="Dodaj">
-</form>
-</body>
-
-</html>
+{%endblock%}

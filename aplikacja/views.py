@@ -32,7 +32,7 @@ def patient_details(request, card_id):
     card = Karta.objects.get(id=card_id)
     lekarze = Doctor.objects.all()
     pielegniarki = Nurse.objects.all()
-    measurements = Measurement.objects.filter(patient = card.patient)
+    measurements = Measurement.objects.filter(patient = card.patient).order_by("-created_date")
     return render(
         request,
         'aplikacja/patient_details.html',
@@ -109,7 +109,7 @@ def measurement_add(request):
                 nurse=nurse
             )
 
-    
+
     measurement.save()
     return redirect("patient_details", card_id)
 
